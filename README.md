@@ -1,8 +1,21 @@
-# Welcome to your Expo app 👋
+# LIBRARY SCANSHELF APP 
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## App Description
+This mobile application uses NFC technology to add books to available on a library shelf to an NFC tag. the app can also read the books stored in that tag and display to any library user.
 
-## Get started
+## App Functionalities
+1. Add section and related books to tag
+2. Update and Erase Tags
+3. Read Shelf Section and related books from tags
+4. Rate books and view rating of books in shelf tag
+
+## App Platform
+Android, preferably from android 12+
+## Technologies used:
+React Native, Expo, react-native-nfc-manager
+
+
+## Running the application locally
 
 1. Install dependencies
 
@@ -18,9 +31,16 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 
 3. Start the app
+   
 
    ```bash
     npx expo start --dev-client
    ```
+
+   It is very important to use a development build when running the app locally instead of expo Go. As the app requires access to the native modules of the android device.
+   
+   Learn more about [expo-dev-client]('https://docs.expo.dev/develop/development-builds/introduction/') for development builds below
+   
+    https://docs.expo.dev/develop/development-builds/introduction/
 
 
