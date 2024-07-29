@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { colors } from "../../constants/Colors";
+import { Colors, colors } from "../../constants/Colors";
 
 // style prop can be either regular, medium, semibold,bold, extra
 // the prop specifies the font weight
@@ -8,7 +8,7 @@ const ThemedText = ({
   text = "",
   style = "regular",
   size = 15,
-  color = colors.light.text,
+  color = Colors.black,
   align = "left",
   extras = {},
   children,
