@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#CC3A53"
       },
       "permissions": ["android.permission.NFC"],
       "package": "com.neonjeff.scanshelf"
