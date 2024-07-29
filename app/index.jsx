@@ -72,6 +72,13 @@ const Home = () => {
         }}
         type="outline"
       />
+      <Button
+        label="Get to Onboarding layout"
+        action={() => {
+          router.push("/(onboarding)/screen1");
+        }}
+        type="outline"
+      />
     </SafeAreaView>
   );
 };
