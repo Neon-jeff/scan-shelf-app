@@ -19,7 +19,6 @@ const OnboardingScreenOne = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
-      {/* <HeaderLogo /> */}
       <Image
         source={require("../../assets/images/reader.png")}
         resizeMode="cover"
