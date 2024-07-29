@@ -43,13 +43,13 @@ const Home = () => {
     };
   }, []);
 
-  if (!isSupported) {
+  /*if (!isSupported) {
     return (
       <SafeAreaView>
         <Text>NFC not supported</Text>
       </SafeAreaView>
     );
-  }
+  }*/
   const readTag = async () => {
     setProgess("Reading for nearby card, put phone close to nfc");
     await NfcManager.registerTagEvent();
