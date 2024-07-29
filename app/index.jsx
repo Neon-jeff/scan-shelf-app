@@ -2,52 +2,51 @@ import { View, Text, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import NfcManager, { NfcEvents, Ndef } from "react-native-nfc-manager";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
+import Button from "./../components/Button/Button";
 const Home = () => {
-  const [isSupported, setIsSupported] = useState(null);
+  // const [isSupported, setIsSupported] = useState(null);
 
-  useEffect(() => {
-    checkSupported();
-  }, []);
+  // useEffect(() => {
+  //   checkSupported();
+  // }, []);
 
-  // check if device supports nfc function
-
-  const checkSupported = async () => {
-    try {
-      const result = await NfcManager.isSupported();
-      setIsSupported(result);
-      if (result) {
-        NfcManager.start();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const checkSupported = async () => {
+  //   try {
+  //     const result = await NfcManager.isSupported();
+  //     setIsSupported(result);
+  //     if (result) {
+  //       NfcManager.start();
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   // Tag event reader useEffect
 
-  useEffect(() => {
-    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-      console.log("tag found");
-    });
+  // useEffect(() => {
+  //   NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
+  //     console.log("tag found");
+  //   });
 
-    return () => {
-      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
-    };
-  }, []);
+  //   return () => {
+  //     NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
+  //   };
+  // }, []);
 
-  const readTag = async () => {
-    console.log("i Want to read a tag");
-    await NfcManager.registerTagEvent();
-  };
+  // const readTag = async () => {
+  //   console.log("i Want to read a tag");
+  //   await NfcManager.registerTagEvent();
+  // };
 
-  if (!isSupported) {
-    return (
-      <SafeAreaView>
-        <Text>NFC not supported</Text>
-      </SafeAreaView>
-    );
-  }
+  // if (!isSupported) {
+  //   return (
+  //     <SafeAreaView>
+  //       <Text>NFC not supported</Text>
+  //     </SafeAreaView>
+  //   );
+  // }
 
   return (
     <SafeAreaView
@@ -56,20 +55,23 @@ const Home = () => {
         justifyContent: "center",
         backgroundColor: "white",
         flex: 1,
+        gap: 20,
       }}
     >
-      <Pressable
-        style={{
-          backgroundColor: "lightblue",
-          width: "50%",
-          padding: 20,
-          alignItems: "center",
-          borderRadius: 10,
+      <Button
+        label="Get to user layout"
+        action={() => {
+          router.push("/(user)/(tabs)");
         }}
-        onPress={readTag}
-      >
-        <Text style={{ fontSize: 20 }}>Scan Tag</Text>
-      </Pressable>
+      />
+
+      <Button
+        label="Get to librarian layout"
+        action={() => {
+          router.push("/(librarian)/(tabs)/home");
+        }}
+        type="outline"
+      />
     </SafeAreaView>
   );
 };
