@@ -14,6 +14,7 @@ const Button = ({
   return (
     <Pressable
       onPress={action}
+      disabled={disabled}
       style={[
         styles.container,
         {
