@@ -6,8 +6,8 @@ import { Colors, colors } from "../../constants/Colors";
 // the prop specifies the font weight
 const ThemedText = ({
   text = "",
-  style = "regular",
-  size = 15,
+  style = "medium",
+  size = 18,
   color = Colors.black,
   align = "left",
   extras = {},

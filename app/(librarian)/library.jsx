@@ -1,14 +1,8 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { HeaderName, HeaderText, ListItem } from "../../components";
-import { router } from "expo-router";
+import { View, Text } from 'react-native'
+import React from 'react'
+import { router } from 'expo-router';
+import Button from "@/components/Button/Button"
+
 
 const Library = () => {
   const [data, setData] = useState([
@@ -29,34 +23,16 @@ const Library = () => {
     <ListItem item={item} onDelete={handleDeleteItem} onEdit={handleEditItem} />
   );
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <HeaderName
-        name="Library"
-        onPress={() => {
-          router.back();
+    <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+      <Text>Library</Text>
+      <Button
+        label="See Success Page"
+        action={() => {
+          router.push('/(librarian)/librarySuccess',
+          );
         }}
       />
-
-      <FlatList
-        style={styles.categoryList}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              marginBottom: 24,
-              marginHorizontal: 20,
-            }}
-          >
-            <HeaderText
-              otherStyles={{ fontSize: 20, fontFamily: "semibold" }}
-              name="Section Shelves"
-            />
-          </View>
-        )}
-      />
-    </SafeAreaView>
+    </View>
   );
 };
 

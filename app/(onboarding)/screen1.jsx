@@ -12,16 +12,14 @@ import ThemedText from "@/components/ThemedText/ThemedText";
 import { Colors } from "@/constants/Colors";
 import Button from "@/components/Button/Button";
 import { router } from "expo-router";
-import HeaderLogo from "../../components/Header/HeaderLogo";
 
 const { width, height } = Dimensions.get("screen");
 const OnboardingScreenOne = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
-      <HeaderLogo />
       <Image
-        source={require("../../assets/images/library-shelf.png")}
+        source={require("../../assets/images/reader.png")}
         resizeMode="cover"
         style={[styles.image]}
       />

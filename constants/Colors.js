@@ -15,4 +15,9 @@ export const Colors = {
   background: "#F8F7F7",
   tabInActive: "#A9A09E",
   cardOutline: "#E9EAF0",
+  orangeIcon: "#ED812D",
+  purpleIcon: "#1C30E5",
+  greenIcon: "#348800",
+  success: "6DC347",
+  gray: "#413C3A",
 };

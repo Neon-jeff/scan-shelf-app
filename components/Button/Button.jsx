@@ -21,10 +21,11 @@ const Button = ({
           backgroundColor: disabled
             ? Colors.disabled
             : type == "outline"
-            ? Colors.white
+            ? 'transparent'
             : Colors.primary,
           borderWidth: type == "outline" ? 1 : 0,
           borderColor: type == "outline" ? Colors.black : "transparent",
+          width:'100%'
         },
       ]}
     >

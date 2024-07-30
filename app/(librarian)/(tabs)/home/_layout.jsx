@@ -1,19 +1,13 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { Stack } from "expo-router";
-import { Colors } from "../../../../constants/Colors";
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Stack } from 'expo-router'
 
-const LibrarianStackLayout = () => {
+const HomeLayout = () => {
   return (
-    <Stack screenOptions={{
-      headerShown:false,
-      contentStyle:{
-        backgroundColor:Colors.background
-      }
-    }}>
-      <Stack.Screen name="index" />
+    <Stack>
+        <Stack.Screen name='index' options={{headerShown:false}}/>
     </Stack>
-  );
-};
+  )
+}
 
-export default LibrarianStackLayout;
+export default HomeLayout

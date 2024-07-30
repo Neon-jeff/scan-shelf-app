@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#CC3A53"
       },
       "permissions": ["android.permission.NFC"],
       "package": "com.neonjeff.scanshelf"
@@ -28,7 +28,9 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "react-native-nfc-manager"],
+    "plugins": ["expo-router", "react-native-nfc-manager","expo-image-picker"
+
+      ],
     "experiments": {
       "typedRoutes": true
     },

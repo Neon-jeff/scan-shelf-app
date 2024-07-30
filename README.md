@@ -6,7 +6,7 @@ This mobile application uses NFC technology to add books to available on a libra
 ## App Functionalities
 1. Add section and related books to tag
 2. Update and Erase Tags
-3. Read Shelf Section and related books from tags
+3. Read Shelf Section and related books from tag
 4. Rate books and view rating of books in shelf tag
 
 ## App Platform

@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-// import * as NavigationBar from "expo-navigation-bar";
+import * as NavigationBar from "expo-navigation-bar";
 import "react-native-reanimated";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -18,14 +18,14 @@ export default function RootLayout() {
   });
 
   // method to control the navigation button styles on android
-  // const setNavigationBarStyles = async () => {
-  //   await NavigationBar.setBackgroundColorAsync("white");
-  //   await NavigationBar.setButtonStyleAsync("dark");
-  // };
+  const setNavigationBarStyles = async () => {
+    await NavigationBar.setBackgroundColorAsync("white");
+    await NavigationBar.setButtonStyleAsync("dark");
+  };
 
   useEffect(() => {
     // set the navigation styles to fit design
-    // setNavigationBarStyles();
+    setNavigationBarStyles();
     if (fontError) throw Error;
 
     if (fontsLoaded || fontError) {
