@@ -9,7 +9,7 @@ const ThemedText = ({
   style = "medium",
   size = 18,
   color = Colors.black,
-  align = "left",
+  align = "start",
   extras = {},
   children,
 }) => {

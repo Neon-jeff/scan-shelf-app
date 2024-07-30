@@ -3,7 +3,7 @@ import React from "react";
 import Logo from "../../assets/images/logo.svg";
 const HeaderLogo = () => {
   return (
-    <View style={{ alignSelf: "center" }}>
+    <View style={{ alignSelf: "start" }}>
       <Logo width={120} height={60} />
     </View>
   );
