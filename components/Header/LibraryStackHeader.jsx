@@ -9,7 +9,7 @@ const LibraryStackHeader = ({ title }) => {
       <Pressable style={{ position: "absolute", left: 0, bottom: "12.5%" }}>
         <ArrowLeft2 size={25} color="black" />
       </Pressable>
-      <ThemedText text={title} size={35} style="bold" />
+      <ThemedText text={title} size={27} style="bold" />
     </View>
   );
 };

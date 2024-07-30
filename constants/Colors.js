@@ -18,5 +18,6 @@ export const Colors = {
   orangeIcon: "#ED812D",
   purpleIcon: "#1C30E5",
   greenIcon: "#348800",
-  success: "6DC347"
+  success: "6DC347",
+  gray: "#413C3A",
 };
