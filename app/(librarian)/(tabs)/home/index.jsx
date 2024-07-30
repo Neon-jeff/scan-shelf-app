@@ -27,10 +27,10 @@ const HomeLibrary = () => {
             <ThemedText size={25} style="bold">NFC Tools</ThemedText>
           </View>
           <View style={styles.shelfRow}>
-            <ShelfItem icon={Scan} text="Scan Shelf" link="/scan" color="#ED812D" variant="Bold"/>
-            <ShelfItem icon={Edit2} text="Write Tags" link="/(librarian)/write" color="#CC3A53" variant="Bold"/>
-            <ShelfItem icon={Book} text="Library" link="/(librarian)/library" color="#1C30E5" variant="Bold"/>
-            <ShelfItem icon={LogoutCurve} text="Logout" color="#348800" variant="Bold"/>
+            <ShelfItem icon={Scan} text="Scan Shelf" link="/scan" color={Colors.orangeIcon} variant="Bold"/>
+            <ShelfItem icon={Edit2} text="Write Tags" link="/(librarian)/write" color={Colors.primary} variant="Bold"/>
+            <ShelfItem icon={Book} text="Library" link="/(librarian)/library" color={Colors.purpleIcon} variant="Bold"/>
+            <ShelfItem icon={LogoutCurve} text="Logout" color={Colors.greenIcon} variant="Bold"/>
           </View>
         </View>
       </View>
