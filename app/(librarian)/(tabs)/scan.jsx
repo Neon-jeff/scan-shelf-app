@@ -109,39 +109,39 @@ const styles = StyleSheet.create({
   }
 });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  headerLogo: {
-    alignItems: "flex-start",
-    marginTop: 12,
-    marginBottom: 15,
-  },
-  readyToScan: {
-    alignItems: "center",
-    marginTop: 100,
-  },
-  readyToScantext: {
-    fontSize: 18,
-    fontWeight: "600",
-    fontFamily: "medium",
-  },
-  scanText: {
-    textAlign: "center",
-    marginTop: 50,
-    fontSize: 16,
-    fontWeight: "500",
-    fontFamily: "medium",
-  },
-  imageStyle: {
-    marginTop: 40,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#FFFFFF",
+//     paddingTop: 40,
+//     paddingBottom: 40,
+//     paddingLeft: 20,
+//     paddingRight: 20,
+//   },
+//   headerLogo: {
+//     alignItems: "flex-start",
+//     marginTop: 12,
+//     marginBottom: 15,
+//   },
+//   readyToScan: {
+//     alignItems: "center",
+//     marginTop: 100,
+//   },
+//   readyToScantext: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     fontFamily: "medium",
+//   },
+//   scanText: {
+//     textAlign: "center",
+//     marginTop: 50,
+//     fontSize: 16,
+//     fontWeight: "500",
+//     fontFamily: "medium",
+//   },
+//   imageStyle: {
+//     marginTop: 40,
+//   },
+// });
 
 export default ScanUser;
