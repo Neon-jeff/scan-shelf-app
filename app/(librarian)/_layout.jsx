@@ -18,6 +18,7 @@ const LibrarianLayoutRoot = () => {
       <Stack.Screen name="writeSuccess" />
       <Stack.Screen name="librarySuccess" />
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="scanNFCWrite" />
     </Stack>
   );
 };

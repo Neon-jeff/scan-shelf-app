@@ -289,9 +289,9 @@ const WriteTags = () => {
           <Button
             label="Add to Shelf"
             action={() => {
-              router.push("/(librarian)/writeSuccess");
+              router.push("/(librarian)/scanNFCWrite");
             }}
-            disabled={uploadedBooks.length == 0}
+          
           />
         </View>
       </ScrollView>
