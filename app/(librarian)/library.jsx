@@ -29,16 +29,34 @@ const Library = () => {
     <ListItem item={item} onDelete={handleDeleteItem} onEdit={handleEditItem} />
   );
   return (
-    <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-      <Text>Library</Text>
-      <Button
-        label="See Success Page"
-        action={() => {
-          router.push('/(librarian)/librarySuccess',
-          );
+    <SafeAreaView style={styles.safeArea}>
+      <HeaderName
+        name="Library"
+        onPress={() => {
+          router.back();
         }}
       />
-    </View>
+
+      <FlatList
+        style={styles.categoryList}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              marginBottom: 24,
+              marginHorizontal: 20,
+            }}
+          >
+            <HeaderText
+              otherStyles={{ fontSize: 20, fontFamily: "semibold" }}
+              name="Section Shelves"
+            />
+          </View>
+        )}
+      />
+    </SafeAreaView>
   );
 };
 
