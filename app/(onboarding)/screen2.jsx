@@ -89,7 +89,11 @@ const OnboardingScreenTwo = () => {
           label="Proceed"
           disabled={!selectedRole}
           action={() => {
-            router.push("/(user)/(tabs)");
+            if (selectedRole == "Reader") {
+              router.push("/(user)/(tabs)");
+            } else {
+              router.push("/(librarian)/(tabs)/home");
+            }
           }}
         />
       </View>

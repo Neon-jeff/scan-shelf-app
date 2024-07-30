@@ -57,7 +57,7 @@ const Home = () => {
 
   // temp redir
   if (true) {
-    return <Redirect href={"/(librarian)/write"} />;
+    return <Redirect href={"/(onboarding)/screen1"} />;
   }
 
   return (
