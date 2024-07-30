@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   btnContainer: {
+    paddingHorizontal: 25,
     flexDirection: "row",
     justifyContent: "center",
   },

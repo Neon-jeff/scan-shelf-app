@@ -56,9 +56,9 @@ const Home = () => {
   // };
 
   // temp redir
-  if (true) {
-    return <Redirect href={"/(librarian)/write"} />;
-  }
+  // if (true) {
+  //   return <Redirect href={"/(librarian)/write"} />;
+  // }
 
   return (
     <SafeAreaView
