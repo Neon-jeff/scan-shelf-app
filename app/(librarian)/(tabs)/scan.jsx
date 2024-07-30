@@ -1,11 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
+import ThemedText from "./../../../components/ThemedText/ThemedText";
+import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
 
-import ThemedText from "../../../components/ThemedText/ThemedText";
+const ScanUser = () => {
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
+      console.log(tag.ndefMessage);
+      setMessage(tag.ndefMessage);
+    });
 
-const ScanLibrary = () => {
+    return () => {
+      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
+    };
+  }, []);
+
+  useEffect(() => {
+    readTag();
+  });
+
+  const readTag = async () => {
+    await NfcManager.registerTagEvent();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerLogo}>
@@ -90,4 +109,39 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScanLibrary;
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#FFFFFF",
+//     paddingTop: 40,
+//     paddingBottom: 40,
+//     paddingLeft: 20,
+//     paddingRight: 20,
+//   },
+//   headerLogo: {
+//     alignItems: "flex-start",
+//     marginTop: 12,
+//     marginBottom: 15,
+//   },
+//   readyToScan: {
+//     alignItems: "center",
+//     marginTop: 100,
+//   },
+//   readyToScantext: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     fontFamily: "medium",
+//   },
+//   scanText: {
+//     textAlign: "center",
+//     marginTop: 50,
+//     fontSize: 16,
+//     fontWeight: "500",
+//     fontFamily: "medium",
+//   },
+//   imageStyle: {
+//     marginTop: 40,
+//   },
+// });
+
+export default ScanUser;

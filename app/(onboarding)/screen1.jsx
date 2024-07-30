@@ -47,10 +47,12 @@ const OnboardingScreenOne = () => {
       </View>
       <View style={styles.btnContainer}>
         <Button
+          width="80%"
           label="Get Started"
           action={() => {
             router.push("/(onboarding)/screen2");
           }}
+          
         />
       </View>
     </SafeAreaView>
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     width,
     height,
     paddingTop: StatusBar.currentHeight,
+    
   },
   image: {
     flex: 0.6,
@@ -77,6 +80,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
     alignSelf: "stretch",
+    paddingHorizontal:20
   },
   btnContainer: {
     paddingHorizontal: 25,

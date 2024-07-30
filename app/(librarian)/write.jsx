@@ -33,6 +33,9 @@ const WriteTags = () => {
   const [date, setDate] = useState(null);
   const [showform, setShowForm] = useState(true);
 
+
+  
+
   const UploadImage = async () => {
     setImageLoading("started");
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -289,9 +292,9 @@ const WriteTags = () => {
           <Button
             label="Add to Shelf"
             action={() => {
-              router.push("/(librarian)/writeSuccess");
+              router.push("/(librarian)/scanNFCWrite");
             }}
-            disabled={uploadedBooks.length == 0}
+          disabled={uploadedBooks.length!==0}
           />
         </View>
       </ScrollView>
