@@ -1,0 +1,42 @@
+export const books = [
+  {
+    id: "1",
+    title: "ANIMAL FARM",
+    author: "George Orwell",
+    rating: 4.8,
+    status: "AVAILABLE",
+    image: require("../assets/images/animal-farm.png"),
+  },
+  {
+    id: "2",
+    title: "BROTHERS KARAMAZOV",
+    author: "Fyodor Dostoevsky",
+    rating: 4.5,
+    status: "AVAILABLE",
+    image: require("../assets/images/animal-farm.png"),
+  },
+  {
+    id: "3",
+    title: "HARRY POTTER",
+    author: "Jk. Rowling",
+    rating: 4.5,
+    status: "UNAVAILABLE",
+    image: require("../assets/images/animal-farm.png"),
+  },
+  {
+    id: "4",
+    title: "MOUNTAINS ECHOED",
+    author: "Khaled Hosseini",
+    rating: 4.5,
+    status: "AVAILABLE",
+    image: require("../assets/images/animal-farm.png"),
+  },
+  {
+    id: "5",
+    title: "THE LORD OF THE RINGS",
+    author: "J. R. R. Tolkien",
+    rating: 4.5,
+    status: "AVAILABLE",
+    image: require("../assets/images/animal-farm.png"),
+  },
+];
