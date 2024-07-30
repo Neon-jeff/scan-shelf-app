@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:20
   },
   btnContainer: {
+    paddingHorizontal: 25,
     flexDirection: "row",
     justifyContent: "center",
   },

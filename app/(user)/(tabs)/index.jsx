@@ -1,32 +1,42 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { LogoutCurve, Scan } from "iconsax-react-native";
+import { router } from "expo-router";
 
+import ThemedText from "../../../components/ThemedText/ThemedText";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
+import ShelfItem from '../../../components/shelfItem/ShelfItem';
 
 const Home = () => {
   return (
     <View style={styles.container}>
+      {/* Header section */}
       <View style={styles.headerLogo}>
         <HeaderLogo />
       </View>
       <View style={styles.header}>
-        <Text style={styles.welcomeText}>Welcome,</Text>
+        <ThemedText size={24}>Welcome,</ThemedText>
       </View>
+      {/* Content section */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>NFC Tools</Text>
+        <ThemedText size={20}>NFC Tools</ThemedText>
         <View style={styles.toolsContainer}>
           <TouchableOpacity style={styles.tool}>
             <View style={styles.iconContainer}>
               <Scan size="32" color="#FF8A65" />
             </View>
-            <Text style={styles.toolText}>Scan Shelf</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.tool}>
-            <View style={styles.iconContainer}>
-              <LogoutCurve size="32" color="#008000" />
+            <View style={styles.toolTop}>
+              <ThemedText>Scan Shelf</ThemedText>
             </View>
-            <Text style={styles.toolText}>Logout</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.tool}>
+            <View style={styles.iconContainer}>
+              <LogoutCurve size={32} color="#348800" style={styles.logout} />
+            </View>
+            <View style={styles.toolTop}>
+              <ThemedText>Logout</ThemedText>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,7 +72,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#333333",
-    fontFamily: "semibold",
   },
   card: {
     backgroundColor: "#F5F5F5",
@@ -76,11 +85,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
   },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    alignItems: "start",
+  toolTop: {
+    marginTop: 10,
   },
   toolsContainer: {
     flexDirection: "row",
@@ -100,8 +106,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    fontFamily: "medium",
   },
+  logout: {
+    fontWeight: '700'
+  }
 });
 
 export default Home;

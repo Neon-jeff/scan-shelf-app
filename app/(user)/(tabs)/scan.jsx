@@ -31,7 +31,7 @@ const ScanUser = () => {
         <HeaderLogo />
       </View>
       <View style={styles.readyToScan}>
-        <Text style={styles.readyToScantext}>Ready to scan</Text>
+        <ThemedText>Ready to scan</ThemedText>
         {/* scan image section */}
         <View style={styles.imageStyle}>
           <Svg
@@ -65,11 +65,9 @@ const ScanUser = () => {
             </Defs>
           </Svg>
         </View>
-        <Text style={styles.scanText}>
-          Hold your phone near the NFC tag to scan the section details
-        </Text>
-
-        <ThemedText text={`Message from Card : ${message}`} />
+        <View style={styles.nfcTag}>
+         <ThemedText align='center'> Hold your phone near the NFC tag to scan the section details</ThemedText>
+        </View>
       </View>
     </View>
   );
@@ -108,6 +106,9 @@ const styles = StyleSheet.create({
   imageStyle: {
     marginTop: 40,
   },
+  nfcTag: {
+    marginTop: 40,
+  }
 });
 
 export default ScanUser;
