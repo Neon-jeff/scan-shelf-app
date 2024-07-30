@@ -1,10 +1,16 @@
-import { View, Text,TextInput } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import React from "react";
-
+import { Colors } from "../../constants/Colors";
 
 const Field = ({ placeholder, setState }) => {
   return (
-    <TextInput />
+    <TextInput
+      style={{
+        borderWidth: 1,
+        borderColor: Colors.cardOutline,
+        borderRadius: 10,
+      }}
+    />
   );
 };
 

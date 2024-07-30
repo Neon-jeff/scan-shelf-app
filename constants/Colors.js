@@ -15,4 +15,5 @@ export const Colors = {
   background: "#F8F7F7",
   tabInActive: "#A9A09E",
   cardOutline: "#E9EAF0",
+ 
 };
