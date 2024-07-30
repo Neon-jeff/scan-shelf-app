@@ -28,7 +28,9 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "react-native-nfc-manager"],
+    "plugins": ["expo-router", "react-native-nfc-manager","expo-image-picker"
+
+      ],
     "experiments": {
       "typedRoutes": true
     },

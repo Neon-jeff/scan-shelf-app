@@ -9,7 +9,7 @@ const LibrarianLayoutRoot = () => {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: Colors.background,
+          backgroundColor: Colors.white,
         },
       }}
     >
