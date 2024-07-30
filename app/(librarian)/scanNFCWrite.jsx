@@ -1,11 +1,13 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+
+import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
 
 const scanNFCWrite = () => {
   return (
     <View style={styles.container}>
       <View style={styles.headerLogo}>
-        <HeaderLogo />
+       
       </View>
       <View style={styles.readyToScan}>
         <Text style={styles.readyToScantext}>Ready to scan</Text>
