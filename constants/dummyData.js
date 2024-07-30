@@ -33,7 +33,7 @@ export const books = [
   },
   {
     id: "5",
-    title: "THE LORD OF THE RINGS",
+    title: "THE LORD OF THE RING",
     author: "J. R. R. Tolkien",
     rating: 4.5,
     status: "AVAILABLE",

@@ -17,7 +17,9 @@ import Field from "../../../components/Fields/Field";
 const Category = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
-  const [searchBook, setSearchBook] = useState("");
+  const [searchBook, setSearchBook] = useState({
+    title: "",
+  });
   const [ratings, setRatings] = useState({});
 
   const handleStarPress = (index) => {
