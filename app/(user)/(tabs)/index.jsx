@@ -1,32 +1,42 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { LogoutCurve, Scan } from 'iconsax-react-native';
+import React from "react";
+import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { LogoutCurve, Scan } from "iconsax-react-native";
+import { router } from "expo-router";
 
-import HeaderLogo from '../../../components/Header/HeaderLogo';
+import ThemedText from "../../../components/ThemedText/ThemedText";
+import HeaderLogo from "../../../components/Header/HeaderLogo";
+import ShelfItem from '../../../components/shelfItem/ShelfItem';
 
 const Home = () => {
   return (
     <View style={styles.container}>
+      {/* Header section */}
       <View style={styles.headerLogo}>
-      <HeaderLogo />
+        <HeaderLogo />
       </View>
       <View style={styles.header}>
-        <Text style={styles.welcomeText}>Welcome,</Text>
+        <ThemedText size={24}>Welcome,</ThemedText>
       </View>
+      {/* Content section */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>NFC Tools</Text>
+        <ThemedText size={20}>NFC Tools</ThemedText>
         <View style={styles.toolsContainer}>
           <TouchableOpacity style={styles.tool}>
             <View style={styles.iconContainer}>
-            <Scan size="32" color="#FF8A65"/>
+              <Scan size="32" color="#FF8A65" />
             </View>
-            <Text style={styles.toolText}>Scan Shelf</Text>
+            <View style={styles.toolTop}>
+              <ThemedText>Scan Shelf</ThemedText>
+            </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tool}>
+          <TouchableOpacity
+            style={styles.tool}>
             <View style={styles.iconContainer}>
-            <LogoutCurve size="32" color="#008000"/>
+              <LogoutCurve size={32} color="#348800" style={styles.logout} />
             </View>
-            <Text style={styles.toolText}>Logout</Text>
+            <View style={styles.toolTop}>
+              <ThemedText>Logout</ThemedText>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,20 +47,20 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     paddingTop: 40,
     paddingBottom: 40,
     paddingLeft: 20,
     paddingRight: 20,
   },
   headerLogo: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     marginTop: 12,
     marginBottom: 15,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
   },
   logo: {
@@ -60,46 +70,46 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333333',
+    fontWeight: "bold",
+    color: "#333333",
   },
   card: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     borderRadius: 10,
     padding: 20,
     marginTop: 26,
     height: 250,
   },
   iconContainer: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     borderRadius: 10,
     padding: 15,
   },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    alignItems: 'start',
+  toolTop: {
+    marginTop: 10,
   },
   toolsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
     marginTop: 20,
   },
   tool: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center',
-    width: '45%',
+    alignItems: "center",
+    width: "45%",
   },
   toolText: {
     marginTop: 10,
     fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
+  logout: {
+    fontWeight: '700'
+  }
 });
 
 export default Home;

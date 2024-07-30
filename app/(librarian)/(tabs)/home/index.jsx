@@ -1,7 +1,7 @@
 import { View, SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 
-import Logo from "@/assets/images/logo.svg";
+import HeaderLogo from "../../../../components/Header/HeaderLogo";
 import { Book, Edit2, LogoutCurve, Scan } from "iconsax-react-native";
 import ShelfItem from "@/components/shelfItem/ShelfItem";
 import ThemedText from "@/components/ThemedText/ThemedText";
@@ -9,15 +9,13 @@ import { Colors } from "@/constants/Colors";
 
 const HomeLibrary = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* Header Section */}
+      <View style={styles.headerLogo}>
+        <HeaderLogo />
+      </View>
       <View style={styles.header}>
-        <View style={styles.logo}>
-          <Logo width={140} height={60} />
-        </View>
-        <View style={styles.welcome}>
-          <ThemedText size={24}>Welcome,</ThemedText>
-        </View>
+        <ThemedText size={24}>Welcome,</ThemedText>
       </View>
 
       {/* Tools Section */}
@@ -34,25 +32,28 @@ const HomeLibrary = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
-    padding: 20,
+    backgroundColor: "#FFFFFF",
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  headerLogo: {
+    alignItems: "flex-start",
+    marginTop: 12,
+    marginBottom: 15,
   },
   header: {
-    alignItems: "flex-start",
-  },
-  logo: {
-    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 20,
-  },
-  welcome: {
-    marginBottom: 30,
   },
   centeredContainer: {
     flex: 0.75,
