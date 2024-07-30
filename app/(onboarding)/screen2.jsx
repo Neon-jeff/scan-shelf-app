@@ -95,6 +95,7 @@ const OnboardingScreenTwo = () => {
               router.push("/(librarian)/(tabs)/home");
             }
           }}
+          width="80%"
         />
       </View>
     </SafeAreaView>

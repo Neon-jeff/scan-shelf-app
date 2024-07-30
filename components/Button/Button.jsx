@@ -9,6 +9,7 @@ const Button = ({
   type = "filled",
   action = () => {},
   disabled = false,
+  width = "100%",
   children,
 }) => {
   return (
@@ -21,11 +22,11 @@ const Button = ({
           backgroundColor: disabled
             ? Colors.disabled
             : type == "outline"
-            ? 'transparent'
+            ? "transparent"
             : Colors.primary,
           borderWidth: type == "outline" ? 1 : 0,
           borderColor: type == "outline" ? Colors.black : "transparent",
-          width:'100%'
+          width: width,
         },
       ]}
     >

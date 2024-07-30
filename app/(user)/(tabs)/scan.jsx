@@ -1,9 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
+import ThemedText from "./../../../components/ThemedText/ThemedText";
+import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
 
 const ScanUser = () => {
+  const [message, setMessage] = useState("");
+  useEffect(() => {
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
+      console.log(tag.ndefMessage);
+      setMessage(tag.ndefMessage);
+    });
+
+    return () => {
+      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
+    };
+  }, []);
+
+  useEffect(() => {
+    readTag();
+  });
+
+  const readTag = async () => {
+    await NfcManager.registerTagEvent();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerLogo}>
@@ -47,6 +68,8 @@ const ScanUser = () => {
         <Text style={styles.scanText}>
           Hold your phone near the NFC tag to scan the section details
         </Text>
+
+        <ThemedText text={`Message from Card : ${message}`} />
       </View>
     </View>
   );
@@ -73,12 +96,14 @@ const styles = StyleSheet.create({
   readyToScantext: {
     fontSize: 18,
     fontWeight: "600",
+    fontFamily: "medium",
   },
   scanText: {
     textAlign: "center",
     marginTop: 50,
     fontSize: 16,
     fontWeight: "500",
+    fontFamily: "medium",
   },
   imageStyle: {
     marginTop: 40,

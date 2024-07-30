@@ -1,16 +1,55 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
+import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import ThemedText from "../../components/ThemedText/ThemedText";
+import LibraryStackHeader from "../../components/Header/LibraryStackHeader";
 
 const scanNFCWrite = () => {
+  useEffect(() => {
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
+      writeNFC("An NFC Message");
+    });
+
+    return () => {
+      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
+    };
+  }, []);
+
+  useEffect(() => {
+    NfcManager.registerTagEvent();
+  }, []);
+
+  const writeNFC = async (message) => {
+    let result = false;
+
+    try {
+      await NfcManager.requestTechnology(NfcTech.Ndef);
+
+      const bytes = Ndef.encodeMessage([Ndef.textRecord(message)]);
+
+      if (bytes) {
+        await NfcManager.ndefHandler.writeNdefMessage(bytes);
+        result = true;
+        router.push("/(librarian)/writeSuccess");
+      }
+    } catch (ex) {
+      console.warn(ex);
+    } finally {
+      NfcManager.cancelTechnologyRequest();
+    }
+
+    return result;
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerLogo}>
-       
-      </View>
+      <LibraryStackHeader title={"Write Tag"} />
+      <View style={styles.headerLogo}></View>
       <View style={styles.readyToScan}>
-        <Text style={styles.readyToScantext}>Ready to scan</Text>
+        <ThemedText text="Ready to scan" size={20} />
         {/* scan image section */}
         <View style={styles.imageStyle}>
           <Svg
@@ -44,9 +83,14 @@ const scanNFCWrite = () => {
             </Defs>
           </Svg>
         </View>
-        <Text style={styles.scanText}>
-          Hold your phone near the NFC tag to scan the section details
-        </Text>
+        <ThemedText
+          text=" Hold your phone near the NFC tag to scan the section details"
+          size={18}
+          align="center"
+          extras={{
+            marginTop: 20,
+          }}
+        />
       </View>
     </View>
   );
@@ -56,7 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop: 40,
+    paddingTop: 60,
     paddingBottom: 40,
     paddingLeft: 20,
     paddingRight: 20,
