@@ -8,6 +8,7 @@ import {
 import ThemedText from "../ThemedText/ThemedText";
 import { Colors } from "../../constants/Colors";
 import StarRating from "../Rating/StarRating";
+import Times from "../../assets/icons/Times.svg";
 
 const RatingModal = ({
   modalVisible,
@@ -26,12 +27,28 @@ const RatingModal = ({
       <View style={styles.overlay}>
         <TouchableWithoutFeedback>
           <View style={styles.modalContent}>
-            <ThemedText
-              text={`${selectedBook.title} (${1985})`}
-              size={16}
-              style="semibold"
-              align="left"
-            />
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <ThemedText
+                text={`${selectedBook.title} (${1985})`}
+                size={16}
+                extras={{
+                  flex: 1,
+                }}
+                style="semibold"
+                align="left"
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              />
+              <TouchableOpacity onPress={closeModal}>
+                <Times width={15} height={15} />
+              </TouchableOpacity>
+            </View>
             <View
               style={{
                 flexDirection: "row",
@@ -49,7 +66,7 @@ const RatingModal = ({
               <StarRating rating={rating} onPress={onStarPress} />
             </View>
             <View>
-              <TouchableOpacity style={styles.sendButton} onPress={closeModal}>
+              <TouchableOpacity style={styles.sendButton}>
                 <ThemedText
                   text={"Send"}
                   size={15}
@@ -75,7 +92,7 @@ const styles = {
   modalContent: {
     width: 300,
     padding: 20,
-    gap: 10,
+    gap: 18,
     backgroundColor: "#fff",
     borderRadius: 10,
   },
