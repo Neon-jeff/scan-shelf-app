@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
