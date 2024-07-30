@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React from "react";
 import ThemedText from "./../ThemedText/ThemedText";
 import { ArrowLeft2 } from "iconsax-react-native";
@@ -6,10 +6,10 @@ import { ArrowLeft2 } from "iconsax-react-native";
 const LibraryStackHeader = ({ title }) => {
   return (
     <View style={{ flexDirection: "row", justifyContent: "center" }}>
-      <View style={{ position: "absolute" }}>
-        <ArrowLeft2 size={20} />
-      </View>
-      <ThemedText text={title} size={25} style="bold" />
+      <Pressable style={{ position: "absolute", left: 0, bottom: "12.5%" }}>
+        <ArrowLeft2 size={25} color="black" />
+      </Pressable>
+      <ThemedText text={title} size={35} style="bold" />
     </View>
   );
 };

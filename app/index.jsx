@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router, Stack } from "expo-router";
+import { Redirect, router, Stack } from "expo-router";
 import Button from "./../components/Button/Button";
 import ThemedText from "@/components/ThemedText/ThemedText";
 const Home = () => {
@@ -50,10 +50,15 @@ const Home = () => {
   //     </SafeAreaView>
   //   );
   // }
-  const readTag = async () => {
-    setProgess("Reading for nearby card, put phone close to nfc");
-    await NfcManager.registerTagEvent();
-  };
+  // const readTag = async () => {
+  //   setProgess("Reading for nearby card, put phone close to nfc");
+  //   await NfcManager.registerTagEvent();
+  // };
+
+  // temp redir
+  if (true) {
+    return <Redirect href={"/(librarian)/write"} />;
+  }
 
   return (
     <SafeAreaView
