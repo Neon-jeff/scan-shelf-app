@@ -55,7 +55,10 @@ const Home = () => {
   //   await NfcManager.registerTagEvent();
   // };
 
-
+  // temp redir
+  if (true) {
+    return <Redirect href={"/(librarian)/write"} />;
+  }
 
   return (
     <SafeAreaView
