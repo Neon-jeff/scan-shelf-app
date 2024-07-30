@@ -3,7 +3,6 @@ import {
   StyleSheet,
   SafeAreaView,
   Dimensions,
-  Image,
   StatusBar,
   TouchableOpacity,
 } from "react-native";
@@ -13,6 +12,8 @@ import { Colors } from "@/constants/Colors";
 import Button from "@/components/Button/Button";
 import { router } from "expo-router";
 import HeaderLogo from "../../components/Header/HeaderLogo";
+import ReaderIcon from "../../assets/images/reader.svg";
+import LibrarianIcon from "../../assets/images/librarian.svg";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -27,12 +28,12 @@ const OnboardingScreenTwo = () => {
     {
       id: 1,
       name: "Reader",
-      image: require("../../assets/images/homeIcon1.png"),
+      image: <ReaderIcon width={90} height={90} />, // Use SVG component
     },
     {
       id: 2,
       name: "Librarian",
-      image: require("../../assets/images/homeIcon2.png"),
+      image: <LibrarianIcon width={90} height={90} />, // Use SVG component
     },
   ];
 
@@ -67,9 +68,7 @@ const OnboardingScreenTwo = () => {
               ]}
               onPress={() => handleSelectRole(role.name)}
             >
-              <View style={styles.labelBox}>
-                <Image source={role.image} />
-              </View>
+              <View style={styles.labelBox}>{role.image}</View>
               <ThemedText
                 text={role.name}
                 size={16}
@@ -143,6 +142,6 @@ const styles = StyleSheet.create({
   },
   activeBorder: {
     borderWidth: 1,
-    borderColor: Colors.primary, // Define your active border color in Colors
+    borderColor: Colors.primary,
   },
 });
