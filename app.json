@@ -34,7 +34,8 @@
     "plugins": [
       "expo-router",
       "react-native-nfc-manager",
-      "expo-image-picker"
+      "expo-image-picker",
+      "expo-document-picker"
     ],
     "experiments": {
       "typedRoutes": true

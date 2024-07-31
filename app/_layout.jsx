@@ -3,7 +3,9 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import * as NavigationBar from "expo-navigation-bar";
+import * as Updates from "expo-updates";
 import "react-native-reanimated";
+import { Alert } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -25,6 +27,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     // set the navigation styles to fit design
+    onFetchUpdateAsync();
     setNavigationBarStyles();
     if (fontError) throw Error;
 
@@ -35,6 +38,26 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !fontError) {
     return null;
+  }
+
+  // check for updates
+
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        Alert.alert(
+          "Fetching Updates",
+          "Downloading new update, reopen your app if it closes"
+        );
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
   }
 
   return (

@@ -4,29 +4,48 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { HeaderName, HeaderText, ListItem } from "../../components";
+import { HeaderName, HeaderText, ListItem } from "../../../components";
 import { router } from "expo-router";
+import { fetchCategories } from "../../../appwrite/fetchBookAndCategories";
+import { LibraryContext } from "../../../context/LibraryContext";
 
 const Library = () => {
-  const [data, setData] = useState([
-    { id: "1", name: "Chemistry" },
-    { id: "2", name: "Mathematics" },
-    { id: "3", name: "Biology" },
-    { id: "4", name: "Physics" },
-  ]);
-
-  const handleDeleteItem = (id) => {
-    const updatedData = data.filter((item) => item.id !== id);
-    setData(updatedData);
+  const { sections, SetSections } = useContext(LibraryContext);
+  useEffect(() => {
+    Alert.alert("Loading Your Library");
+    SectionFetch();
+  }, []);
+  const SectionFetch = async () => {
+    let data = await fetchCategories();
+    SetSections(data);
   };
 
-  const handleEditItem = () => {};
+  const [data, setData] = useState([]);
+
+  if (sections.length > 0) {
+    sections.forEach;
+  }
+  const handleDeleteItem = (id) => {
+    // const updatedData = data.filter((item) => item.id !== id);
+    // setData(updatedData);
+  };
+
+  const handleEditItem = (id) => {
+    router.push(`(librarian)/${id}`);
+  };
 
   const renderItem = ({ item }) => (
-    <ListItem item={item} onDelete={handleDeleteItem} onEdit={handleEditItem} />
+    <ListItem
+      item={item}
+      onDelete={handleDeleteItem}
+      onEdit={() => {
+        handleEditItem(item.id);
+      }}
+    />
   );
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -39,7 +58,10 @@ const Library = () => {
 
       <FlatList
         style={styles.categoryList}
-        data={data}
+        data={sections.map((section) => ({
+          id: section["$id"],
+          name: section["sectionname"],
+        }))}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => (
