@@ -8,6 +8,7 @@ import {
   Home2,
   SliderHorizontal1,
   SliderHorizontal,
+  Book,
 } from "iconsax-react-native";
 
 const TabIcon = ({ focused, label, children }) => {
@@ -73,25 +74,34 @@ const LibrarianTabsLayout = () => {
       />
 
       <Tabs.Screen
-        name="category"
+        name="library"
         options={{
           tabBarShowLabel: false,
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} label={"Categories"}>
-              {focused ? (
-                <SliderHorizontal
-                  size={24}
-                  color={focused ? Colors.primary : Colors.tabInActive}
-                  variant={focused ? "Bold" : "Outline"}
-                />
-              ) : (
-                <SliderHorizontal1
-                  size={24}
-                  color={focused ? Colors.primary : Colors.tabInActive}
-                  variant={focused ? "Bold" : "Outline"}
-                />
-              )}
+            <TabIcon focused={focused} label={"Library"}>
+              <Book
+                size={24}
+                color={focused ? Colors.primary : Colors.tabInActive}
+                variant={focused ? "Bold" : "Outline"}
+              />
+            </TabIcon>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="category"
+        options={{
+          href:null,
+          tabBarShowLabel: false,
+          tabBarLabel: "",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} label={"Library"}>
+              <Book
+                size={24}
+                color={focused ? Colors.primary : Colors.tabInActive}
+                variant={focused ? "Bold" : "Outline"}
+              />
             </TabIcon>
           ),
         }}

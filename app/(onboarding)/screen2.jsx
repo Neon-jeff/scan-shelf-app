@@ -40,7 +40,9 @@ const OnboardingScreenTwo = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
-      <HeaderLogo />
+      <View style={{ paddingLeft: 20 }}>
+        <HeaderLogo />
+      </View>
 
       <View style={[styles.image]}>
         <ThemedText
@@ -95,7 +97,7 @@ const OnboardingScreenTwo = () => {
               router.push("/(librarian)/(tabs)/home");
             }
           }}
-          width="80%"
+          width="100%"
         />
       </View>
     </SafeAreaView>

@@ -5,7 +5,7 @@ import { router } from "expo-router";
 
 import ThemedText from "../../../components/ThemedText/ThemedText";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
-import ShelfItem from '../../../components/shelfItem/ShelfItem';
+import ShelfItem from "../../../components/shelfItem/ShelfItem";
 
 const Home = () => {
   return (
@@ -21,7 +21,12 @@ const Home = () => {
       <View style={styles.card}>
         <ThemedText size={20}>NFC Tools</ThemedText>
         <View style={styles.toolsContainer}>
-          <TouchableOpacity style={styles.tool}>
+          <TouchableOpacity
+            style={styles.tool}
+            onPress={() => {
+              router.push("/(user)/(tabs)/scan");
+            }}
+          >
             <View style={styles.iconContainer}>
               <Scan size="32" color="#FF8A65" />
             </View>
@@ -30,7 +35,11 @@ const Home = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.tool}>
+            style={styles.tool}
+            onPress={() => {
+              router.push("/(onboarding)/screen1");
+            }}
+          >
             <View style={styles.iconContainer}>
               <LogoutCurve size={32} color="#348800" style={styles.logout} />
             </View>
@@ -108,8 +117,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   logout: {
-    fontWeight: '700'
-  }
+    fontWeight: "700",
+  },
 });
 
 export default Home;

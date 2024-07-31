@@ -1,25 +1,18 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import React, { useContext } from "react";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
 import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
 import { router } from "expo-router";
 import { useEffect } from "react";
 import ThemedText from "../../components/ThemedText/ThemedText";
 import LibraryStackHeader from "../../components/Header/LibraryStackHeader";
+import { LibraryContext } from "../../context/LibraryContext";
 
 const scanNFCWrite = () => {
+  const { newId } = useContext(LibraryContext);
   useEffect(() => {
-    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-      writeNFC("An NFC Message");
-    });
-
-    return () => {
-      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
-    };
-  }, []);
-
-  useEffect(() => {
-    NfcManager.registerTagEvent();
+    console.log(newId);
+    writeNFC(newId);
   }, []);
 
   const writeNFC = async (message) => {
@@ -32,6 +25,7 @@ const scanNFCWrite = () => {
 
       if (bytes) {
         await NfcManager.ndefHandler.writeNdefMessage(bytes);
+        Alert.alert("NFC Writing", "NFC is writing");
         result = true;
         router.push("/(librarian)/writeSuccess");
       }

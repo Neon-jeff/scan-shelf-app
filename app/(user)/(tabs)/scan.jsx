@@ -1,16 +1,26 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
 import HeaderLogo from "../../../components/Header/HeaderLogo";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
 import ThemedText from "./../../../components/ThemedText/ThemedText";
 import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
+import { fetchCategories } from "../../../appwrite/fetchBookAndCategories";
+import { UserContext } from "../../../context/userContext";
+import { router } from "expo-router";
 
 const ScanUser = () => {
-  const [message, setMessage] = useState("");
+  const { setCategory, setMessage } = useContext(UserContext);
+
   useEffect(() => {
+    readTag();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-      console.log(tag.ndefMessage);
-      setMessage(tag.ndefMessage);
+      if (tag.ndefMessage.length == 0) {
+        Alert.alert("Card Empty", "You're scanning an empty card");
+      }
+      const id = tag.ndefMessage[0].payload.toString("utf8");
+      setMessage(id);
+      SectionFetch(id);
+      router.push("/(user)/(tabs)/category");
     });
 
     return () => {
@@ -18,9 +28,12 @@ const ScanUser = () => {
     };
   }, []);
 
-  useEffect(() => {
-    readTag();
-  });
+  const SectionFetch = async (id) => {
+    Alert.alert("Getting Category");
+    let data = await fetchCategories();
+    let category = data.find((item) => item["$id"] == id);
+    setCategory(category);
+  };
 
   const readTag = async () => {
     await NfcManager.registerTagEvent();
@@ -66,7 +79,10 @@ const ScanUser = () => {
           </Svg>
         </View>
         <View style={styles.nfcTag}>
-         <ThemedText align='center'> Hold your phone near the NFC tag to scan the section details</ThemedText>
+          <ThemedText align="center">
+            {" "}
+            Hold your phone near the NFC tag to scan the section details
+          </ThemedText>
         </View>
       </View>
     </View>
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
   },
   nfcTag: {
     marginTop: 40,
-  }
+  },
 });
 
 export default ScanUser;

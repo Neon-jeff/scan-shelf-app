@@ -8,6 +8,7 @@ import Field from "../../components/Fields/Field";
 import { Colors } from "../../constants/Colors";
 import Button from "./../../components/Button/Button";
 import { ScrollView } from "react-native";
+import { createCategoryAndBooks } from "../../appwrite/createSectionAndBooks";
 import {
   ArrowRotateRight,
   Refresh2,
@@ -16,9 +17,13 @@ import {
   CloseCircle,
 } from "iconsax-react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as DocumentPicker from "expo-document-picker";
 import DatePickerModal from "../../components/Modals/DatePickerModal";
+import { LibraryContext } from "../../context/LibraryContext";
+import { useContext } from "react";
 
 const WriteTags = () => {
+  const { newId, setNewId } = useContext(LibraryContext);
   const router = useRouter();
   const [sectionName, setSectionName] = useState(null);
   const [uploadedBooks, setUploadedBooks] = useState([]);
@@ -33,27 +38,43 @@ const WriteTags = () => {
   const [date, setDate] = useState(null);
   const [showform, setShowForm] = useState(true);
 
+  // const UploadImage = async () => {
+  //   setImageLoading("started");
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     quality: 1,
+  //   });
+  //   if (result.canceled) {
+  //     setImageLoading(null);
+  //   }
+  //   if (!result.canceled) {
+  //     setImageLoading("completed");
+  //     setImage(result.assets[0]);
+  //     setCurrentAddedBook({
+  //       ...currentAddedBook,
+  //       thumbnail: result.assets[0],
+  //     });
+  //   }
+  // };
 
-  
-
-  const UploadImage = async () => {
+  const uploadDoc = async () => {
     setImageLoading("started");
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      quality: 1,
+    const result = await DocumentPicker.getDocumentAsync({
+      type: ["image/png", "image/jpg", "image/jpeg"],
     });
-    if (result.canceled) {
-      setImageLoading(null);
-    }
     if (!result.canceled) {
       setImageLoading("completed");
       setImage(result.assets[0]);
-      setCurrentAddedBook({ ...currentAddedBook, image: result.assets[0].uri });
+      setCurrentAddedBook({
+        ...currentAddedBook,
+        thumbnail: result.assets[0],
+      });
+    } else {
+      setImageLoading(null);
     }
   };
-  console.log(currentAddedBook);
-  console.log(uploadedBooks);
+
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 25, gap: 40 }}>
@@ -172,7 +193,7 @@ const WriteTags = () => {
                   gap: 15,
                   alignItems: "center",
                 }}
-                onPress={UploadImage}
+                onPress={uploadDoc}
               >
                 <ThemedText
                   text="Upload your images"
@@ -233,16 +254,16 @@ const WriteTags = () => {
                   >
                     <Image size={20} color={Colors.gray} variant="Bold" />
                     <ThemedText
-                      text={image.fileName}
-                      size={12}
+                      text={image.name}
+                      size={15}
                       color={Colors.gray}
                     />
                   </View>
                   <ThemedText
-                    text={`${Math.round(image.fileSize / 1024)}Kb`}
-                    style="regular"
+                    text={`${Math.round(image.size / 1024)}Kb`}
+                    style="medium"
                     color={Colors.gray}
-                    size={15}
+                    size={17}
                   />
                 </View>
               )}
@@ -266,7 +287,7 @@ const WriteTags = () => {
                 !currentAddedBook.title ||
                 !currentAddedBook.copies ||
                 !currentAddedBook.published_year ||
-                !currentAddedBook.image
+                !currentAddedBook.thumbnail
               ) {
                 Alert.alert(
                   "Fill Every Field!",
@@ -291,10 +312,24 @@ const WriteTags = () => {
           />
           <Button
             label="Add to Shelf"
-            action={() => {
+            action={async () => {
+              if (!sectionName || uploadedBooks.length == 0) {
+                Alert.alert(
+                  "Add a section",
+                  "Add a section and upload a book to it"
+                );
+                return;
+              }
+
+              Alert.alert("Getting your shelf ready");
+              let data = await createCategoryAndBooks(
+                sectionName,
+                uploadedBooks
+              );
+              setNewId(data["$id"]);
               router.push("/(librarian)/scanNFCWrite");
             }}
-          disabled={uploadedBooks.length!==0}
+            disabled={uploadedBooks.length == 0}
           />
         </View>
       </ScrollView>

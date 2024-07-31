@@ -47,7 +47,7 @@ const OnboardingScreenOne = () => {
       </View>
       <View style={styles.btnContainer}>
         <Button
-          width="80%"
+          width="100%"
           label="Get Started"
           action={() => {
             router.push("/(onboarding)/screen2");
