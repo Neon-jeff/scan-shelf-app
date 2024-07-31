@@ -4,9 +4,10 @@ import ThemedText from "../ThemedText/ThemedText";
 import { Colors } from "../../constants/Colors";
 
 const BookCard = ({ book }) => {
+  console.log(book.image);
   return (
     <View style={styles.card}>
-      <Image source={book.image} style={styles.image} />
+      <Image source={{ uri: book.image }} resizeMode="cover" style={styles.image} />
       <View style={styles.info}>
         <ThemedText
           text={book.title}
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 70,
     borderRadius: 5,
+    resizeMode: "cover",
   },
   info: {
     marginHorizontal: 20,

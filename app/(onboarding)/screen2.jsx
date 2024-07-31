@@ -40,7 +40,9 @@ const OnboardingScreenTwo = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
-      <HeaderLogo />
+      <View style={{ paddingLeft: 20 }}>
+        <HeaderLogo />
+      </View>
 
       <View style={[styles.image]}>
         <ThemedText
@@ -89,8 +91,13 @@ const OnboardingScreenTwo = () => {
           label="Proceed"
           disabled={!selectedRole}
           action={() => {
-            router.push("/(user)/(tabs)");
+            if (selectedRole == "Reader") {
+              router.push("/(user)/(tabs)");
+            } else {
+              router.push("/(librarian)/(tabs)/home");
+            }
           }}
+          width="100%"
         />
       </View>
     </SafeAreaView>
@@ -121,6 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 25,
   },
   labelContainer: {
     flexDirection: "row",

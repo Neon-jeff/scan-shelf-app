@@ -1,6 +1,6 @@
 import { View, Text, Pressable, Alert } from "react-native";
 import React, { useState } from "react";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LibraryStackHeader from "../../components/Header/LibraryStackHeader";
 import ThemedText from "../../components/ThemedText/ThemedText";
@@ -15,6 +15,7 @@ import {
   Image,
   Calendar,
   CloseCircle,
+  Trash,
 } from "iconsax-react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
@@ -22,8 +23,10 @@ import DatePickerModal from "../../components/Modals/DatePickerModal";
 import { LibraryContext } from "../../context/LibraryContext";
 import { useContext } from "react";
 
-const WriteTags = () => {
-  const { newId, setNewId } = useContext(LibraryContext);
+const SectionDetails = () => {
+  // local search params
+  const { id } = useLocalSearchParams();
+  const { newId, setNewId, sections } = useContext(LibraryContext);
   const router = useRouter();
   const [sectionName, setSectionName] = useState(null);
   const [uploadedBooks, setUploadedBooks] = useState([]);
@@ -36,28 +39,10 @@ const WriteTags = () => {
   const [image, setImage] = useState(null);
   const [showDatePicker, setShowdatePicker] = useState(false);
   const [date, setDate] = useState(null);
-  const [showform, setShowForm] = useState(true);
+  const [showform, setShowForm] = useState(false);
+  const section = sections.find((item) => item["$id"] == id);
 
-  // const UploadImage = async () => {
-  //   setImageLoading("started");
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     quality: 1,
-  //   });
-  //   if (result.canceled) {
-  //     setImageLoading(null);
-  //   }
-  //   if (!result.canceled) {
-  //     setImageLoading("completed");
-  //     setImage(result.assets[0]);
-  //     setCurrentAddedBook({
-  //       ...currentAddedBook,
-  //       thumbnail: result.assets[0],
-  //     });
-  //   }
-  // };
-
+  // upload image
   const uploadDoc = async () => {
     setImageLoading("started");
     const result = await DocumentPicker.getDocumentAsync({
@@ -75,10 +60,9 @@ const WriteTags = () => {
     }
   };
 
-
   return (
     <SafeAreaView style={{ flex: 1, padding: 25, gap: 40 }}>
-      <LibraryStackHeader title={"Write Tags"} />
+      <LibraryStackHeader title={"Library"} />
       {showDatePicker && (
         <DatePickerModal
           setDate={setDate}
@@ -97,13 +81,35 @@ const WriteTags = () => {
             onChange={(text) => {
               setSectionName(text);
             }}
-            value={sectionName}
+            value={section["sectionname"]}
           />
         </View>
 
         {/* Upladed Book List */}
         <View style={{ gap: 20 }}>
           <ThemedText text="Book List" size={27} style="semibold" />
+          {/* Existing books */}
+          <View style={{ gap: 10 }}>
+            {section["books"].map((item) => (
+              <View
+                key={item.title}
+                style={{
+                  padding: 12,
+                  borderWidth: 1,
+                  borderColor: Colors.cardOutline,
+                  borderRadius: 10,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <ThemedText text={item.title} size={20} />
+                <Pressable>
+                  <Trash size={20} color={Colors.gray} />
+                </Pressable>
+              </View>
+            ))}
+          </View>
           {uploadedBooks.length > 0 && (
             <View style={{ gap: 10 }}>
               {uploadedBooks.map((item) => (
@@ -135,10 +141,10 @@ const WriteTags = () => {
           )}
         </View>
         {/* book list form  */}
-        {(showform || uploadedBooks.length == 0) && (
+        {showform && (
           <View style={{ gap: 15 }}>
-            {showform && uploadedBooks.length > 0 && (
-              <ThemedText text="Add Book" size={27} style="semibold" />
+            {showform && (
+              <ThemedText text="Add New Book" size={27} style="semibold" />
             )}
             <View style={{ gap: 15 }}>
               <Field
@@ -311,7 +317,7 @@ const WriteTags = () => {
             type="outline"
           />
           <Button
-            label="Add to Shelf"
+            label="Update Shelf"
             action={async () => {
               if (!sectionName || uploadedBooks.length == 0) {
                 Alert.alert(
@@ -337,4 +343,4 @@ const WriteTags = () => {
   );
 };
 
-export default WriteTags;
+export default SectionDetails;

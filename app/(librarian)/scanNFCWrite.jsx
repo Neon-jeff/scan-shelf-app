@@ -1,50 +1,49 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import React, { useEffect, useState, useContext } from "react";
-import HeaderLogo from "../../../components/Header/HeaderLogo";
+import React, { useContext } from "react";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
-import ThemedText from "./../../../components/ThemedText/ThemedText";
 import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
-import { fetchCategories } from "../../../appwrite/fetchBookAndCategories";
-import { UserContext } from "../../../context/userContext";
 import { router } from "expo-router";
+import { useEffect } from "react";
+import ThemedText from "../../components/ThemedText/ThemedText";
+import LibraryStackHeader from "../../components/Header/LibraryStackHeader";
+import { LibraryContext } from "../../context/LibraryContext";
 
-const ScanUser = () => {
-  const { setCategory, setMessage } = useContext(UserContext);
-
+const scanNFCWrite = () => {
+  const { newId } = useContext(LibraryContext);
   useEffect(() => {
-    readTag();
-    NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-      if (tag.ndefMessage.length == 0) {
-        Alert.alert("Card Empty", "You're scanning an empty card");
-      }
-      const id = tag.ndefMessage[0].payload.toString("utf8");
-      setMessage(id);
-      SectionFetch(id);
-      router.push("/(user)/(tabs)/category");
-    });
-
-    return () => {
-      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
-    };
+    console.log(newId);
+    writeNFC(newId);
   }, []);
 
-  const SectionFetch = async (id) => {
-    Alert.alert("Getting Category");
-    let data = await fetchCategories();
-    let category = data.find((item) => item["$id"] == id);
-    setCategory(category);
+  const writeNFC = async (message) => {
+    let result = false;
+
+    try {
+      await NfcManager.requestTechnology(NfcTech.Ndef);
+
+      const bytes = Ndef.encodeMessage([Ndef.textRecord(message)]);
+
+      if (bytes) {
+        await NfcManager.ndefHandler.writeNdefMessage(bytes);
+        Alert.alert("NFC Writing", "NFC is writing");
+        result = true;
+        router.push("/(librarian)/writeSuccess");
+      }
+    } catch (ex) {
+      console.warn(ex);
+    } finally {
+      NfcManager.cancelTechnologyRequest();
+    }
+
+    return result;
   };
 
-  const readTag = async () => {
-    await NfcManager.registerTagEvent();
-  };
   return (
     <View style={styles.container}>
-      <View style={styles.headerLogo}>
-        <HeaderLogo />
-      </View>
+      <LibraryStackHeader title={"Write Tag"} />
+      <View style={styles.headerLogo}></View>
       <View style={styles.readyToScan}>
-        <ThemedText>Ready to scan</ThemedText>
+        <ThemedText text="Ready to scan" size={20} />
         {/* scan image section */}
         <View style={styles.imageStyle}>
           <Svg
@@ -78,12 +77,14 @@ const ScanUser = () => {
             </Defs>
           </Svg>
         </View>
-        <View style={styles.nfcTag}>
-          <ThemedText align="center">
-            {" "}
-            Hold your phone near the NFC tag to scan the section details
-          </ThemedText>
-        </View>
+        <ThemedText
+          text=" Hold your phone near the NFC tag to scan the section details"
+          size={18}
+          align="center"
+          extras={{
+            marginTop: 20,
+          }}
+        />
       </View>
     </View>
   );
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
-    paddingTop: 40,
+    paddingTop: 60,
     paddingBottom: 40,
     paddingLeft: 20,
     paddingRight: 20,
@@ -110,21 +111,16 @@ const styles = StyleSheet.create({
   readyToScantext: {
     fontSize: 18,
     fontWeight: "600",
-    fontFamily: "medium",
   },
   scanText: {
     textAlign: "center",
     marginTop: 50,
     fontSize: 16,
     fontWeight: "500",
-    fontFamily: "medium",
   },
   imageStyle: {
     marginTop: 40,
   },
-  nfcTag: {
-    marginTop: 40,
-  },
 });
 
-export default ScanUser;
+export default scanNFCWrite;

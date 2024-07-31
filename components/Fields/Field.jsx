@@ -2,16 +2,16 @@ import { View, Text, TextInput } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
 
-const Field = ({ placeholder, setState, onChange }) => {
+const Field = ({ placeholder, setState, onChange, value, editable = true }) => {
   return (
     <TextInput
       style={{
         borderWidth: 1,
         borderColor: Colors.cardOutline,
         borderRadius: 15,
-        padding: 12,
+        padding: 9,
         fontFamily: "medium",
-        fontSize: 20,
+        fontSize: 18,
         paddingHorizontal: 20,
       }}
       placeholder={placeholder}
@@ -19,6 +19,8 @@ const Field = ({ placeholder, setState, onChange }) => {
         onChange(e.nativeEvent.text);
       }}
       cursorColor={Colors.gray}
+      value={value}
+      editable={editable}
     />
   );
 };
