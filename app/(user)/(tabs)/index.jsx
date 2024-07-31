@@ -34,7 +34,12 @@ const Home = () => {
               <ThemedText>Scan Shelf</ThemedText>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tool}>
+          <TouchableOpacity
+            style={styles.tool}
+            onPress={() => {
+              router.push("/(onboarding)/screen1");
+            }}
+          >
             <View style={styles.iconContainer}>
               <LogoutCurve size={32} color="#348800" style={styles.logout} />
             </View>

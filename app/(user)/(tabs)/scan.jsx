@@ -9,11 +9,17 @@ import { UserContext } from "../../../context/userContext";
 import { router } from "expo-router";
 
 const ScanUser = () => {
-  const { setCategory } = useContext(UserContext);
-  const [message, setMessage] = useState("");
+  const { setCategory, setMessage } = useContext(UserContext);
+
   useEffect(() => {
+    readTag();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-      SectionFetch(tag.ndefMessage);
+      if (tag.ndefMessage.length == 0) {
+        Alert.alert("Card Empty", "You're scanning an empty card");
+      }
+      const id = tag.ndefMessage[0].payload.toString("utf8");
+      setMessage(id);
+      SectionFetch(id);
       router.push("/(user)/(tabs)/category");
     });
 
@@ -28,10 +34,6 @@ const ScanUser = () => {
     let category = data.find((item) => item["$id"] == id);
     setCategory(category);
   };
-
-  useEffect(() => {
-    readTag();
-  });
 
   const readTag = async () => {
     await NfcManager.registerTagEvent();

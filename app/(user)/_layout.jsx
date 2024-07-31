@@ -6,7 +6,7 @@ import { UserContextProvider } from "../../context/userContext";
 const UserRootLayout = () => {
   return (
     <UserContextProvider>
-      <Slot />;
+      <Slot />
     </UserContextProvider>
   );
 };

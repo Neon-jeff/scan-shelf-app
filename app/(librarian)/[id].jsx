@@ -41,7 +41,7 @@ const SectionDetails = () => {
   const [date, setDate] = useState(null);
   const [showform, setShowForm] = useState(false);
   const section = sections.find((item) => item["$id"] == id);
- 
+
   // upload image
   const uploadDoc = async () => {
     setImageLoading("started");

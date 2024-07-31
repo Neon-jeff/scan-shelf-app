@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,18 +9,51 @@ import {
 } from "react-native";
 import ThemedText from "../../../components/ThemedText/ThemedText";
 import { Colors } from "../../../constants/Colors";
-import { books } from "../../../constants/dummyData";
 import BookCard from "../../../components/Card/BookCard";
 import RatingModal from "../../../components/Modal/RatingModal";
 import Field from "../../../components/Fields/Field";
+import { UserContext } from "../../../context/userContext";
+import { Redirect } from "expo-router";
+import Button from "../../../components/Button/Button";
+import { router } from "expo-router";
 
 const Category = () => {
+  const { category, message } = useContext(UserContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
   const [searchBook, setSearchBook] = useState({
     title: "",
   });
+
+  if (category.length == 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 30,
+        }}
+      >
+        <ThemedText text={`Scan a tag from shelf ${message}`} />
+        <Button
+          width="80%"
+          action={() => {
+            router.push("/(user)/(tabs)/scan");
+          }}
+        />
+      </View>
+    );
+  }
   const [ratings, setRatings] = useState({});
+  const books = category["books"].map((item) => ({
+    title: item["title"],
+    author: item["author"],
+    image: "https://cdn-icons-png.freepik.com/512/3488/3488109.png",
+    id: item["$id"],
+    status: item["available"],
+    rating: Math.floor(Math.random() * 3) + 3,
+  }));
 
   const handleStarPress = (index) => {
     setRatings((prevRatings) => ({
@@ -49,7 +82,7 @@ const Category = () => {
       <StatusBar barStyle="dark-content" />
       <View style={{ marginTop: 20 }}>
         <ThemedText
-          text="FICTION"
+          text={category["sectionname"]}
           size={24}
           style="semibold"
           align="left"
