@@ -38,6 +38,7 @@ const Category = () => {
         <ThemedText text={`Scan a tag from shelf ${message}`} />
         <Button
           width="80%"
+          label="Scan a tag"
           action={() => {
             router.push("/(user)/(tabs)/scan");
           }}

@@ -30,8 +30,8 @@ const Library = () => {
     sections.forEach;
   }
   const handleDeleteItem = (id) => {
-    // const updatedData = data.filter((item) => item.id !== id);
-    // setData(updatedData);
+    const updatedData = sections.filter((item) => item["$id"] !== id);
+    SetSections(updatedData);
   };
 
   const handleEditItem = (id) => {

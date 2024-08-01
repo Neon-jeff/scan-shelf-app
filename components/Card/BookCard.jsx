@@ -4,7 +4,7 @@ import ThemedText from "../ThemedText/ThemedText";
 import { Colors } from "../../constants/Colors";
 
 const BookCard = ({ book }) => {
-  console.log(book.image);
+  
   return (
     <View style={styles.card}>
       <Image source={{ uri: book.image }} resizeMode="cover" style={styles.image} />
