@@ -32,7 +32,9 @@ const ScanUser = () => {
     Alert.alert("Getting Category");
     let data = await fetchCategories();
     let category = data.find((item) => item["$id"] == id);
-    setCategory(category);
+    if (category) {
+      setCategory(category);
+    }
   };
 
   const readTag = async () => {

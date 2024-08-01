@@ -25,7 +25,7 @@ const Category = () => {
     title: "",
   });
 
-  if (category.length == 0) {
+  if (!category) {
     return (
       <View
         style={{
