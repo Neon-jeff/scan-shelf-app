@@ -12,6 +12,7 @@ import { HeaderName, HeaderText, ListItem } from "../../../components";
 import { router } from "expo-router";
 import { fetchCategories } from "../../../appwrite/fetchBookAndCategories";
 import { LibraryContext } from "../../../context/LibraryContext";
+import { deleteCategory } from "../../../appwrite/updateCategory";
 
 const Library = () => {
   const { sections, SetSections } = useContext(LibraryContext);
@@ -29,7 +30,9 @@ const Library = () => {
   if (sections.length > 0) {
     sections.forEach;
   }
-  const handleDeleteItem = (id) => {
+  const handleDeleteItem = async (id) => {
+    Alert.alert("Deleting Shelf");
+    await deleteCategory(id);
     const updatedData = sections.filter((item) => item["$id"] !== id);
     SetSections(updatedData);
   };

@@ -63,6 +63,6 @@ export async function deleteCategory(categoryId) {
       categoryId
     );
   } catch (error) {
-    console.error("Error deleting category");
+    console.error("Error deleting category",error);
   }
 }
