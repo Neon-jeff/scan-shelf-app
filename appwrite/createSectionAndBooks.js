@@ -1,5 +1,6 @@
 import { appwriteConfig } from "./AppwriteConfigs";
 import { Databases, ID, Client, Storage } from "react-native-appwrite";
+import { async } from "./../api/createSection";
 
 const client = new Client();
 client
@@ -75,7 +76,7 @@ async function uploadFile(file, type) {
       asset
     );
     const fileUrl = await getFilePreview(uploadedFile["$id"], type);
-    
+
     return fileUrl;
   } catch (error) {
     console.error("Error uploading file:", error);
@@ -96,7 +97,7 @@ export async function createCategoryAndBooks(categoryName, books) {
         books: [],
       }
     );
-   
+
     // newCategory=JSON.parse(JSON.stringify(newCategory))
     // Create the books and link them to the category
     const bookIds = []; // To store IDs of created books
@@ -135,5 +136,51 @@ export async function createCategoryAndBooks(categoryName, books) {
   } catch (error) {
     console.error("Error creating category and books:", error);
     throw new Error(error.message);
+  }
+}
+
+export async function addBooksToCategory(categoryId, books) {
+  // get category from id
+  try {
+    const category = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoriesCollectionId,
+      categoryId
+    );
+    console.log(category);
+    // create books and upload url
+    const bookIds = []; // To store IDs of created books
+    for (const book of books) {
+      const thumbnailUrl = await uploadFile(book.thumbnail, "image");
+      const newBook = await databases.createDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.booksCollectionId,
+        ID.unique(),
+        {
+          author: book.author,
+          available: book.available,
+          copies: book.copies,
+          thumbnail: thumbnailUrl, // Ensure this is a proper URI or file reference
+          published_year: book.published_year,
+          raters: parseInt(book.raters, 10),
+          rating: parseFloat(book.rating),
+          title: book.title,
+          categories: [categoryId],
+        }
+      );
+
+      bookIds.push(newBook["$id"]); // Collect the book IDs
+    }
+    // Update the category with the new books' IDs
+    const updatedBooks = [...category.books, ...bookIds];
+    await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoriesCollectionId,
+      categoryId,
+      { books: updatedBooks }
+    );
+  } catch (error) {
+    console.error("Error adding book to category:", error);
+    throw new Error("Failed to add book to category.");
   }
 }

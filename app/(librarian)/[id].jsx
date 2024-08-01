@@ -8,7 +8,10 @@ import Field from "../../components/Fields/Field";
 import { Colors } from "../../constants/Colors";
 import Button from "./../../components/Button/Button";
 import { ScrollView } from "react-native";
-import { createCategoryAndBooks } from "../../appwrite/createSectionAndBooks";
+import {
+  addBooksToCategory,
+  createCategoryAndBooks,
+} from "../../appwrite/createSectionAndBooks";
 import {
   ArrowRotateRight,
   Refresh2,
@@ -22,11 +25,13 @@ import * as DocumentPicker from "expo-document-picker";
 import DatePickerModal from "../../components/Modals/DatePickerModal";
 import { LibraryContext } from "../../context/LibraryContext";
 import { useContext } from "react";
+import { deleteBookFromCategory } from "../../appwrite/updateCategory";
+import { fetchCategories } from "../../appwrite/fetchBookAndCategories";
 
 const SectionDetails = () => {
   // local search params
   const { id } = useLocalSearchParams();
-  const { newId, setNewId, sections } = useContext(LibraryContext);
+  const { newId, setNewId, sections, SetSections } = useContext(LibraryContext);
   const router = useRouter();
   const [sectionName, setSectionName] = useState(null);
   const [uploadedBooks, setUploadedBooks] = useState([]);
@@ -42,6 +47,16 @@ const SectionDetails = () => {
   const [showform, setShowForm] = useState(false);
   const section = sections.find((item) => item["$id"] == id);
 
+  const handleDeleteBook = async (bookID) => {
+    Alert.alert("Deleting Book");
+    try {
+      await deleteBookFromCategory(id, bookID);
+      let data = await fetchCategories();
+      SetSections(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // upload image
   const uploadDoc = async () => {
     setImageLoading("started");
@@ -104,7 +119,11 @@ const SectionDetails = () => {
                 }}
               >
                 <ThemedText text={item.title} size={20} />
-                <Pressable>
+                <Pressable
+                  onPress={() => {
+                    handleDeleteBook(item["$id"]);
+                  }}
+                >
                   <Trash size={20} color={Colors.gray} />
                 </Pressable>
               </View>
@@ -285,10 +304,7 @@ const SectionDetails = () => {
                 setShowForm((prev) => !prev);
                 return;
               }
-              if (!sectionName) {
-                Alert.alert("Add Section Name!", "Add section Name");
-                return;
-              }
+
               if (
                 !currentAddedBook.title ||
                 !currentAddedBook.copies ||
@@ -319,21 +335,17 @@ const SectionDetails = () => {
           <Button
             label="Update Shelf"
             action={async () => {
-              if (!sectionName || uploadedBooks.length == 0) {
+              if (uploadedBooks.length == 0) {
                 Alert.alert(
-                  "Add a section",
-                  "Add a section and upload a book to it"
+                  "Add a new book",
+                  "Add  a new book to the category to update it"
                 );
                 return;
               }
 
               Alert.alert("Getting your shelf ready");
-              let data = await createCategoryAndBooks(
-                sectionName,
-                uploadedBooks
-              );
-              setNewId(data["$id"]);
-              router.push("/(librarian)/scanNFCWrite");
+              await addBooksToCategory(id, uploadedBooks);
+              router.push("/(librarian)/(tabs)/library");
             }}
             disabled={uploadedBooks.length == 0}
           />

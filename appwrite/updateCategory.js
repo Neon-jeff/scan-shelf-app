@@ -29,7 +29,6 @@ export async function deleteBookFromCategory(categoryId, bookId) {
       appwriteConfig.categoriesCollectionId,
       categoryId
     );
-
     const updatedBooks = category.books.filter((id) => id !== bookId);
     return await databases.updateDocument(
       appwriteConfig.databaseId,
@@ -40,5 +39,30 @@ export async function deleteBookFromCategory(categoryId, bookId) {
   } catch (error) {
     console.error("Error deleting book from category:", error);
     throw new Error("Failed to delete book from category.");
+  }
+}
+
+export async function deleteCategory(categoryId) {
+  try {
+    const category = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoriesCollectionId,
+      categoryId
+    );
+
+    for (const bookId of category.books) {
+      await databases.deleteDocument(
+        appwriteConfig.databaseId,
+        appwriteConfig.booksCollectionId,
+        bookId
+      );
+    }
+    await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.categoriesCollectionId,
+      categoryId
+    );
+  } catch (error) {
+    console.error("Error deleting category");
   }
 }
