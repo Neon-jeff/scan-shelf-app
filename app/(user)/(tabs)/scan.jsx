@@ -16,11 +16,15 @@ const ScanUser = () => {
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
       if (tag.ndefMessage.length == 0) {
         Alert.alert("Card Empty", "You're scanning an empty card");
+        return;
       }
-      const id = tag.ndefMessage[0].payload.toString("utf8");
-      setMessage(id);
+      let id = tag.ndefMessage[0].payload.reduce(
+        (acc, byte) => acc + String.fromCharCode(byte),
+        ""
+      );
+      id = id.replace("en", "");
+      id = id.trim();
       SectionFetch(id);
-      router.push("/(user)/(tabs)/category");
     });
 
     return () => {
@@ -29,12 +33,16 @@ const ScanUser = () => {
   }, []);
 
   const SectionFetch = async (id) => {
-    Alert.alert("Getting Category");
+    if (id == "66ab1e6c000a0c55591c") {
+      Alert.alert("Card matches");
+    }
+    setMessage(id);
     let data = await fetchCategories();
     let category = data.find((item) => item["$id"] == id);
     if (category) {
       setCategory(category);
     }
+    router.push("/(user)/(tabs)/category");
   };
 
   const readTag = async () => {

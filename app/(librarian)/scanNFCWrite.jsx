@@ -11,7 +11,6 @@ import { LibraryContext } from "../../context/LibraryContext";
 const scanNFCWrite = () => {
   const { newId } = useContext(LibraryContext);
   useEffect(() => {
-    console.log(newId);
     writeNFC(newId);
   }, []);
 
