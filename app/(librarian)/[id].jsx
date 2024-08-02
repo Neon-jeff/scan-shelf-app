@@ -47,6 +47,16 @@ const SectionDetails = () => {
   const [showform, setShowForm] = useState(false);
   const section = sections.find((item) => item["$id"] == id);
 
+  if (!section) {
+    return (
+      <SafeAreaView
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <ThemedText text="No Section Found!" />
+      </SafeAreaView>
+    );
+  }
+
   const handleDeleteBook = async (bookID) => {
     Alert.alert("Deleting Book");
     try {

@@ -10,8 +10,14 @@ const ScanUser = () => {
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
       if (tag.ndefMessage.length == 0) {
         Alert.alert("Card Empty", "You're scanning an empty card");
+        return;
       }
-      const id = tag.ndefMessage[0].payload.toString("utf8");
+      let id = tag.ndefMessage[0].payload.reduce(
+        (acc, byte) => acc + String.fromCharCode(byte),
+        ""
+      );
+      id = id.replace("en", "");
+      id = id.trim();
       router.push(`(librarian)/${id}`);
     });
 
