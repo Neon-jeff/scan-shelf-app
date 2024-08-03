@@ -50,7 +50,9 @@ const Category = () => {
   const books = category["books"].map((item) => ({
     title: item["title"],
     author: item["author"],
-    image: "https://cdn-icons-png.freepik.com/512/3488/3488109.png",
+    image: item["thumbnail"]
+      ? item["thumbnail"].replace("width=%5Bobject+Object%5D", "width=400")
+      : '"https://cdn-icons-png.freepik.com/512/3488/3488109.png"',
     id: item["$id"],
     status: item["available"],
     rating: Math.floor(Math.random() * 3) + 3,

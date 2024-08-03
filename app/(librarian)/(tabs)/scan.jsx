@@ -4,9 +4,12 @@ import HeaderLogo from "../../../components/Header/HeaderLogo";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
 import ThemedText from "./../../../components/ThemedText/ThemedText";
 import NfcManager, { NfcEvents, Ndef, NfcTech } from "react-native-nfc-manager";
+import { Alert } from "react-native";
+import { router } from "expo-router";
 
 const ScanUser = () => {
   useEffect(() => {
+    readTag();
     NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
       if (tag.ndefMessage.length == 0) {
         Alert.alert("Card Empty", "You're scanning an empty card");
@@ -25,10 +28,6 @@ const ScanUser = () => {
       NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
     };
   }, []);
-
-  useEffect(() => {
-    readTag();
-  });
 
   const readTag = async () => {
     await NfcManager.registerTagEvent();
