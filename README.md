@@ -12,7 +12,7 @@ This mobile application uses NFC technology to add books to available on a libra
 ## App Platform
 Android, preferably from android 12+
 ## Technologies used:
-React Native, Expo, react-native-nfc-manager
+React Native, Expo, react-native-nfc-manager, Appwrite SDK
 
 
 ## Running the application locally
