@@ -14,6 +14,10 @@ Android, preferably from android 12+
 ## Technologies used:
 React Native, Expo, react-native-nfc-manager, Appwrite SDK
 
+## App ScreenShots
+
+the app screenshot can be found here 
+https://drive.google.com/drive/folders/1aYQ1ihO99tfWAazC7asouwwfVIlR_SkI?usp=sharing
 
 ## Running the application locally
 
